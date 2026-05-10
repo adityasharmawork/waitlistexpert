@@ -10,17 +10,6 @@ import { api } from "@/convex/_generated/api";
 
 type StepId = 0 | 1 | 2;
 
-function useScrolled(threshold = 80) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > threshold);
-    fn();
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
-  }, [threshold]);
-  return scrolled;
-}
-
 function Marquee({
   items,
   durationSeconds,
@@ -35,8 +24,7 @@ function Marquee({
   return (
     <div
       className={[
-        "relative overflow-hidden",
-        "group",
+        "relative overflow-hidden marquee-pause-on-hover",
         className,
       ].join(" ")}
     >
@@ -56,11 +44,6 @@ function Marquee({
           </div>
         ))}
       </div>
-      <style jsx>{`
-        .group:hover div {
-          animation-play-state: paused;
-        }
-      `}</style>
     </div>
   );
 }
@@ -495,7 +478,6 @@ function DiscoveryPreview() {
 }
 
 export default function HomePage() {
-  const scrolled = useScrolled(80);
   const reduced = useReducedMotion();
 
   const [activeStep, setActiveStep] = useState<StepId>(0);
@@ -628,56 +610,10 @@ export default function HomePage() {
 
   return (
     <main className="overflow-hidden noise">
-      {/* NAV */}
-      <div className="sticky top-0 z-50">
-        <div
-          className={[
-            "h-14",
-            "transition-all duration-300",
-            scrolled
-              ? "backdrop-blur-[24px] bg-[rgba(3,3,3,0.85)] border-b border-[rgba(255,255,255,0.06)]"
-              : "bg-transparent border-b border-transparent",
-          ].join(" ")}
-        >
-          <div className="max-w-6xl mx-auto h-full px-6 flex items-center justify-between">
-            <Link href="/" className="t-body-md">
-              <span className="font-normal text-[--black-700]">waitlist</span>
-              <span className="text-[--white-0] font-semibold">.expert</span>
-            </Link>
-
-            <nav className="hidden md:flex items-center gap-8 text-[14px]">
-              <Link href="#features" className="nav-link">
-                Features
-              </Link>
-              <Link href="#discovery" className="nav-link">
-                Discovery
-              </Link>
-              <Link href="#docs" className="nav-link">
-                Docs
-              </Link>
-            </nav>
-
-            <GhostButton href="/sign-up" className="text-[14px]">
-              Get started
-            </GhostButton>
-          </div>
-        </div>
-      </div>
-
       {/* HERO */}
       <section className="relative min-h-[100vh] flex items-center">
         <div className="absolute inset-0 bg-[--black-50]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_50%_40%,rgba(255,255,255,0.04)_0%,transparent_70%)]" />
-        <div
-          className="absolute inset-0 opacity-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-            maskImage: "linear-gradient(to bottom, black 0%, transparent 80%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 80%)",
-          }}
-        />
         <motion.div
           initial={reduced ? false : { opacity: 0 }}
           animate={reduced ? { opacity: 1 } : { opacity: 1 }}
@@ -737,7 +673,7 @@ export default function HomePage() {
                   animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ delay: 0.35, duration: 0.5, ease: ease.outCubic }}
                 >
-                  Before you build your launch.
+                  Before you launch.
                 </motion.span>
               </h1>
 
@@ -829,7 +765,7 @@ export default function HomePage() {
                 {
                   step: "01",
                   title: "Create the page",
-                  desc: "Pick a theme, set your launch date, and publish instantly to a clean URL you’ll be proud to share.",
+                  desc: "Pick a theme, set your launch date, and publish instantly to a clean URL you'll be proud to share.",
                 },
                 {
                   step: "02",
@@ -1168,7 +1104,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6">
           <Reveal>
             <div className="t-heading-lg text-[--white-0] max-w-[38ch]">
-              Founders don’t buy features. They buy confidence.
+              Founders don't buy features. They buy confidence.
             </div>
           </Reveal>
 
@@ -1189,7 +1125,7 @@ export default function HomePage() {
               quotes={[
                 { q: "The embed worked on our marketing site with zero build changes.", a: "Noah", t: "Indie founder" },
                 { q: "The motion and typography feel like Linear. Not a template.", a: "Priya", t: "@priyamakes" },
-                { q: "We stopped arguing about tools and just launched. That’s the point.", a: "Jordan", t: "YC alum" },
+                { q: "We stopped arguing about tools and just launched. That's the point.", a: "Jordan", t: "YC alum" },
                 { q: "Copy button, code block, live counter — everything feels intentional.", a: "Lin", t: "@linships" },
               ]}
             />
@@ -1258,80 +1194,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-[--black-0] border-t border-[rgba(255,255,255,0.06)] py-12">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-10">
-            <div className="md:col-span-1">
-              <div className="t-body-md">
-                <span className="font-normal text-[--black-700]">waitlist</span>
-                <span className="text-[--white-0] font-semibold">.expert</span>
-              </div>
-              <div className="mt-3 t-body-sm text-[--black-600]">
-                The pre-launch platform.
-              </div>
-              <div className="mt-6 t-body-sm text-[--black-600]">
-                © {new Date().getFullYear()} waitlist.expert
-              </div>
-            </div>
-
-            <FooterCol
-              title="Product"
-              links={[
-                ["Features", "#features"],
-                ["Discovery", "#discovery"],
-                ["Embed", "#embed"],
-                ["API", "/docs"],
-                ["Themes", "#features"],
-              ]}
-            />
-            <FooterCol
-              title="Company"
-              links={[
-                ["About", "/about"],
-                ["Blog", "/blog"],
-                ["Changelog", "/changelog"],
-                ["Twitter/X", "https://x.com/"],
-              ]}
-            />
-            <FooterCol
-              title="Legal"
-              links={[
-                ["Privacy", "/privacy"],
-                ["Terms", "/terms"],
-              ]}
-            />
-          </div>
-        </div>
-      </footer>
     </main>
-  );
-}
-
-function FooterCol({
-  title,
-  links,
-}: {
-  title: string;
-  links: Array<[string, string]>;
-}) {
-  return (
-    <div>
-      <div className="text-[12px] font-medium tracking-[0.06em] uppercase text-[--black-800]">
-        {title}
-      </div>
-      <div className="mt-4 flex flex-col gap-3">
-        {links.map(([label, href]) => (
-          <Link
-            key={label}
-            href={href}
-            className="text-[14px] text-[--black-600] hover:text-[--white-50] transition-colors duration-150 w-fit"
-          >
-            {label}
-          </Link>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -1345,7 +1208,7 @@ function TestimonialRow({
   durationSeconds: number;
 }) {
   return (
-    <div className="relative overflow-hidden group">
+    <div className="relative overflow-hidden marquee-pause-on-hover">
       <div
         className="flex w-[200%] gap-5 will-change-transform"
         style={{
@@ -1360,7 +1223,7 @@ function TestimonialRow({
             style={{ boxShadow: "var(--shadow-md)" }}
           >
             <div className="t-body-sm text-[--black-800] leading-[1.65]">
-              “{x.q}”
+              &ldquo;{x.q}&rdquo;
             </div>
             <div className="mt-5 flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-[--black-300] border border-[rgba(255,255,255,0.08)]" />
@@ -1374,11 +1237,6 @@ function TestimonialRow({
           </div>
         ))}
       </div>
-      <style jsx>{`
-        .group:hover div {
-          animation-play-state: paused;
-        }
-      `}</style>
     </div>
   );
 }

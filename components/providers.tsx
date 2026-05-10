@@ -16,7 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       appearance={{
         baseTheme: dark,
         variables: {
-          colorPrimary: "#6366f1",
+          colorPrimary: "#ffffff",
           borderRadius: "0.5rem",
         },
       }}

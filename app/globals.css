@@ -210,6 +210,12 @@ html {
   box-shadow: var(--shadow-md);
 }
 
+/* ─── Marquee hover pause ──────────────────────────── */
+
+.marquee-pause-on-hover:hover > * {
+  animation-play-state: paused;
+}
+
 /* ─── Noise overlay ────────────────────────────────── */
 
 .noise::before {
