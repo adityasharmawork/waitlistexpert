@@ -28,7 +28,7 @@ export function WelcomeEmail({
     <Html>
       <Head />
       <Preview>
-        You&apos;re #{position} on the waitlist for {productName}
+        You&apos;re #{position.toString()} on the waitlist for {productName}
       </Preview>
       <Body style={body}>
         <Container style={container}>
