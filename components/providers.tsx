@@ -4,6 +4,7 @@ import { ClerkProvider, useAuth } from "@clerk/nextjs";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ConvexReactClient } from "convex/react";
 import { dark } from "@clerk/themes";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 const convex = new ConvexReactClient(
   process.env.NEXT_PUBLIC_CONVEX_URL as string
@@ -21,7 +22,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       }}
     >
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </ConvexProviderWithClerk>
     </ClerkProvider>
   );

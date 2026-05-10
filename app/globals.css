@@ -1,42 +1,257 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --accent: #6366f1;
-  --accent-foreground: #ffffff;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --border: #262626;
-  --ring: #6366f1;
+  /* === BLACKS === */
+  --black-0: #000000;
+  --black-50: #030303;
+  --black-100: #0a0a0a;
+  --black-150: #111111;
+  --black-200: #161616;
+  --black-300: #1f1f1f;
+  --black-350: #272727;
+  --black-400: #333333;
+  --black-500: #444444;
+  --black-600: #666666;
+  --black-700: #888888;
+  --black-800: #aaaaaa;
+  --black-900: #cccccc;
+
+  /* === WHITES === */
+  --white-0: #ffffff;
+  --white-50: #f7f7f7;
+  --white-100: #efefef;
+
+  /* === FUNCTIONAL OPACITY TOKENS === */
+  --white-glow-xs: rgba(255, 255, 255, 0.03);
+  --white-glow-sm: rgba(255, 255, 255, 0.06);
+  --white-glow-md: rgba(255, 255, 255, 0.09);
+  --white-glow-lg: rgba(255, 255, 255, 0.14);
+  --white-glow-xl: rgba(255, 255, 255, 0.2);
+
+  --border-default: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-focus: rgba(255, 255, 255, 0.4);
+
+  /* === SHADOWS === */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.8);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.9);
+  --shadow-xl: 0 24px 80px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 1);
+  --glow-white: 0 0 60px rgba(255, 255, 255, 0.06),
+    0 0 120px rgba(255, 255, 255, 0.03);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-ring: var(--ring);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--black-50);
+  --color-foreground: var(--white-50);
+  --color-border: var(--border-default);
+  --color-ring: var(--border-focus);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--black-50);
+  color: var(--white-50);
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
-/* Smooth scrolling for anchor links */
 html {
-  scroll-behavior: smooth;
+  background: var(--black-50);
 }
 
-/* Selection color */
 ::selection {
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white-0);
+}
+
+/* ─── Type scale (matches brief) ───────────────────── */
+
+.t-display-xl {
+  font-size: 80px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+.t-display-lg {
+  font-size: 64px;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.t-heading-xl {
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.t-heading-lg {
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.t-heading-md {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.t-heading-sm {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.t-body-lg {
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+.t-body-md {
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 400;
+}
+.t-body-sm {
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+.t-label {
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.t-mono {
+  font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .t-display-xl {
+    font-size: 48px;
+    letter-spacing: -0.04em;
+  }
+  .t-display-lg {
+    font-size: 44px;
+  }
+  .t-heading-xl {
+    font-size: 34px;
+  }
+}
+
+/* ─── Keyframes ────────────────────────────────────── */
+
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes drift-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+/* ─── Interaction primitives ───────────────────────── */
+
+.nav-link {
+  position: relative;
+  color: var(--black-700);
+  transition: color 0.15s ease;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--white-0);
+  transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.nav-link:hover {
+  color: var(--white-0);
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.surface {
+  background: rgba(10, 10, 10, 0.65);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── Noise overlay ────────────────────────────────── */
+
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+/* ─── Animated conic border helper ─────────────────── */
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.card-hero-border {
+  --border-angle: 0deg;
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 80%,
+    rgba(255, 255, 255, 0.2) 90%,
+    transparent 100%
+  );
+  animation: border-spin 6s linear infinite;
+}
+
+/* ─── Accessibility ────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

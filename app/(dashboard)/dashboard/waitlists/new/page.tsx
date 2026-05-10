@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { slugify, cn } from "@/lib/utils";
 import { themes, type ThemeId } from "@/lib/themes";
@@ -38,12 +38,6 @@ export default function CreateWaitlistPage() {
   const [launchDate, setLaunchDate] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (!slugEdited && name) {
-      setSlug(slugify(name));
-    }
-  }, [name, slugEdited]);
 
   const slugAvailability = useQuery(
     api.waitlists.checkSlugAvailability,
@@ -96,7 +90,11 @@ export default function CreateWaitlistPage() {
               type="text"
               required
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                const next = e.target.value;
+                setName(next);
+                if (!slugEdited) setSlug(slugify(next));
+              }}
               placeholder="My Awesome Product"
               className="w-full px-4 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white placeholder:text-neutral-600 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
             />

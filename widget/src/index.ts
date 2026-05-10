@@ -23,8 +23,8 @@
   if (!WAITLIST_ID) return;
 
   // Prevent double-init
-  if ((window as any).__wle_init) return;
-  (window as any).__wle_init = true;
+  if (window.__wle_init) return;
+  window.__wle_init = true;
 
   // --- Styles ---
   const CSS = `
@@ -385,3 +385,11 @@
   createFab();
   fetchInfo();
 })();
+
+declare global {
+  interface Window {
+    __wle_init?: boolean;
+  }
+}
+
+export {};

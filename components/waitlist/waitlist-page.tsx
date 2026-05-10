@@ -8,7 +8,7 @@ import { getTheme } from "@/lib/themes";
 import { formatNumber, daysUntil, cn } from "@/lib/utils";
 import { Users, Clock, ArrowRight, Check, Copy, Share2 } from "lucide-react";
 
-const Twitter = (props: any) => (
+const Twitter = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"

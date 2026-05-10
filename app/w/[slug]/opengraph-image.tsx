@@ -13,7 +13,7 @@ export default async function OGImage(props: {
   // Fetch waitlist data from Convex HTTP endpoint
   const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
   let name = slug;
-  let tagline = "Join the waitlist";
+  const tagline = "Join the waitlist";
   let signupCount = 0;
 
   if (convexUrl) {
